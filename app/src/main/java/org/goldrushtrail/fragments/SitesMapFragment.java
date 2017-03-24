@@ -1,39 +1,44 @@
-package goldrushtrail.org.goldrushtrail;
+package org.goldrushtrail.fragments;
 
-import android.content.Intent;
-import android.support.v4.app.FragmentActivity;
+import android.content.Context;
+import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
-import android.text.SpannableString;
-import android.text.style.BackgroundColorSpan;
+import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.PolygonOptions;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
-{
-    private TextView infoWindowTitle;
-    private ImageView infoWindowImage;
+import org.goldrushtrail.R;
+import org.goldrushtrail.locations.GoldCoastLocation;
 
-    private GoogleMap mMap;
-    private ArrayList<GoldCoastLocation> mLocations;
+/**
+ * A simple {@link Fragment} subclass.
+ * Activities that contain this fragment must implement the
+ * {@link SitesMapFragmentListener} interface
+ * to handle interaction events.
+ * Use the {@link SitesMapFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class SitesMapFragment extends Fragment implements OnMapReadyCallback
+{
+    private SitesMapFragmentListener mListener;
+    private MapView mMap;
     private static final HashMap<String, Integer> LABEL_COLORS = new HashMap<String, Integer>() {{
         put(GoldCoastLocation.TOUR_ENUM.YB.toString(), R.color.colorYB);
         put(GoldCoastLocation.TOUR_ENUM.EM.toString(), R.color.colorEM);
@@ -42,40 +47,48 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         put(GoldCoastLocation.TOUR_ENUM.PS.toString(), R.color.colorPS);
         put(GoldCoastLocation.TOUR_ENUM.CO.toString(), R.color.colorCO);
     }};
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState)
+    public SitesMapFragment()
     {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
-
-        mLocations = new GCLAssetReader().getGoldCoastLocations(getApplicationContext());
-
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        // Required empty public constructor
     }
 
     /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @return A new instance of fragment SitesMapFragment.
      */
+    public static SitesMapFragment newInstance()
+    {
+        SitesMapFragment fragment = new SitesMapFragment();
+        return fragment;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_sites_map, container, false);
+
+        mMap = (MapView) rootView.findViewById(R.id.mapView);
+        mMap.onCreate(savedInstanceState);
+
+        mMap.onResume(); // needed to get the map to display immediately
+
+        try {
+            MapsInitializer.initialize(getActivity().getApplicationContext());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        mMap.getMapAsync(this);
+
+        return rootView;
+    }
+
     @Override
     public void onMapReady(GoogleMap googleMap)
     {
 
-        mMap = googleMap;
-
-
-        for(int i= 0; i<=5; i++)
-
-        for( GoldCoastLocation location: mLocations)
+        for( GoldCoastLocation location: mListener.getLocations())
         {
             LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
             //ss.setSpan(new  BackgroundColorSpan(Color.YELLOW ),57  ,68  ,0);
@@ -141,16 +154,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
             Log.d("In the for-loop", "location.tourEnum() : "+location.tourEnum());
-            mMap.addMarker(markerOptions);
+            googleMap.addMarker(markerOptions);
 
         }
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(37.795197,-122.400000), 14));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(37.795197,-122.400000), 14));
 
 
         //PolygonOptions polygonOptions = new PolygonOptions().addAll(Iterable<LatLng>);
         //mMap.addPolygon(polygonOptions);
 
-        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener(){
+        googleMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener(){
 
             @Override
             public void onInfoWindowClick(Marker marker) {
@@ -159,9 +172,84 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 String title = marker.getTitle();
                 //Intent intent = new Intent(this, DetailFragment.class); //TODO: Put the appropriate class file in here
                 //intent.putExtras(title);
-                Toast.makeText(getApplicationContext(), "Info window clicked \n"+title, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getApplicationContext(), "Info window clicked \n"+title, Toast.LENGTH_SHORT).show();
                 //startActivity(intent);
             }
         });
+    }
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri)
+    {
+        if (mListener != null)
+        {
+        }
+    }
+
+    @Override
+    public void onAttach(Context context)
+    {
+        super.onAttach(context);
+        if (context instanceof SitesMapFragmentListener)
+        {
+            mListener = (SitesMapFragmentListener) context;
+        } else
+        {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach()
+    {
+        super.onDetach();
+        mListener = null;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mMap.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mMap.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mMap.onDestroy();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mMap.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mMap.onLowMemory();
+    }
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     */
+    public interface SitesMapFragmentListener
+    {
+        public ArrayList<GoldCoastLocation> getLocations();
+        public void onListClickEvent(View v, Long id);
+        public Resources getResources();
+        public String getPackageName();
     }
 }

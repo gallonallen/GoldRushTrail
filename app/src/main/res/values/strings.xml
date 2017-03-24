@@ -1,4 +1,10 @@
 <resources>
-    <string name="app_name">GoldRushTrail</string>
-    <string name="title_activity_maps">Gold Rush Trail</string>
+    <string name="app_name">Gold Rush Trails</string>
+    <string name="goldcoastthumbnail">Gold Coast Trail</string>
+    <string name="title_goldcoastlocation_list">GoldCoastLocations</string>
+    <string name="title_goldcoastlocation_detail">GoldCoastLocation Detail</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
 </resources>

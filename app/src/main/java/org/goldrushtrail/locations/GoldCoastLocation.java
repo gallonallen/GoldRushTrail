@@ -1,4 +1,4 @@
-package goldrushtrail.org.goldrushtrail;
+package org.goldrushtrail.locations;
 
 /**
  * Created by cs211d on 3/9/2017.

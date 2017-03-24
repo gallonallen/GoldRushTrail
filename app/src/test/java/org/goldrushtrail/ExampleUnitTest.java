@@ -1,4 +1,4 @@
-package goldrushtrail.org.goldrushtrail;
+package org.goldrushtrail;
 
 import org.junit.Test;
 
