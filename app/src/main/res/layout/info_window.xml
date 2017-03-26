@@ -20,6 +20,7 @@
         android:layout_height="200dp"
         android:id="@+id/infoWindowImage"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/ybg"/>
+        android:src="@drawable/ybg"
+        android:contentDescription=""/>
 </LinearLayout>
 

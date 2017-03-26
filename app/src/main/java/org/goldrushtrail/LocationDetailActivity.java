@@ -2,28 +2,24 @@ package org.goldrushtrail;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 
 /**
- * An activity representing a single GoldCoastLocation detail screen. This
+ * An activity representing a single GoldRushLocation detail screen. This
  * activity is only used narrow width devices. On tablet-size devices,
  * item details are presented side-by-side with a list of items
  * in a {@link NavigationActivity}.
  */
-public class GoldCoastLocationDetailActivity extends AppCompatActivity
+public class LocationDetailActivity extends AppCompatActivity
 {
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_goldcoastlocation_detail);
+        setContentView(R.layout.activity_goldrushlocation_detail);
 
 /*
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
@@ -61,9 +57,9 @@ public class GoldCoastLocationDetailActivity extends AppCompatActivity
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putParcelable(GoldCoastLocationDetailFragment.ARG_LOCATION,
-                    getIntent().getParcelableExtra(GoldCoastLocationDetailFragment.ARG_LOCATION));
-            GoldCoastLocationDetailFragment fragment = new GoldCoastLocationDetailFragment();
+            arguments.putParcelable(LocationDetailFragment.ARG_LOCATION,
+                    getIntent().getParcelableExtra(LocationDetailFragment.ARG_LOCATION));
+            LocationDetailFragment fragment = new LocationDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.goldcoastlocation_detail_container, fragment)

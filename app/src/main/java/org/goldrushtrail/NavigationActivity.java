@@ -1,6 +1,5 @@
 package org.goldrushtrail;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -8,29 +7,23 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
+import org.goldrushtrail.fragments.ToursListFragment;
 import org.goldrushtrail.fragments.SitesListFragment;
 import org.goldrushtrail.fragments.SitesMapFragment;
 import org.goldrushtrail.locations.GCLAssetReader;
-import org.goldrushtrail.locations.GoldCoastLocation;
+import org.goldrushtrail.locations.GoldRushLocation;
+import org.goldrushtrail.locations.GoldRushTour;
 
 public class NavigationActivity extends AppCompatActivity
     implements SitesListFragment.GoldRushSiteFragmentListener,
-        SitesMapFragment.SitesMapFragmentListener
+        SitesMapFragment.SitesMapFragmentListener,
+        ToursListFragment.GoldRushTourFragmentListener
 {
-    private ArrayList<GoldCoastLocation> mLocations;
-    private static final HashMap<String, Integer> LABEL_COLORS = new HashMap<String, Integer>() {{
-        put(GoldCoastLocation.TOUR_ENUM.YB.toString(), R.color.colorYB);
-        put(GoldCoastLocation.TOUR_ENUM.EM.toString(), R.color.colorEM);
-        put(GoldCoastLocation.TOUR_ENUM.JS.toString(), R.color.colorJS);
-        put(GoldCoastLocation.TOUR_ENUM.FI.toString(), R.color.colorFI);
-        put(GoldCoastLocation.TOUR_ENUM.PS.toString(), R.color.colorPS);
-        put(GoldCoastLocation.TOUR_ENUM.CO.toString(), R.color.colorCO);
-    }};
+    private ArrayList<GoldRushLocation> mLocations;
+    private ArrayList<GoldRushTour> mTours;
     private boolean mTwoPane = false;
 
     @Override
@@ -38,8 +31,10 @@ public class NavigationActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
+        GCLAssetReader assetReader = new GCLAssetReader();
+        mLocations = assetReader.getGoldRushLocations(this);
+        mTours = assetReader.getGoldRushTours(this);
 
-        mLocations = new GCLAssetReader().getGoldCoastLocations(getApplicationContext());
         BottomNavigationView bottomNavigationView = (BottomNavigationView)
                 findViewById(R.id.navigation);
 
@@ -54,6 +49,9 @@ public class NavigationActivity extends AppCompatActivity
                                 break;
                             case R.id.navigation_map:
                                 selectedFragment = SitesMapFragment.newInstance();
+                                break;
+                            case R.id.navigation_tours:
+                                selectedFragment = ToursListFragment.newInstance();
                                 break;
                         }
                         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -71,39 +69,53 @@ public class NavigationActivity extends AppCompatActivity
     }
 
     @Override
-    public ArrayList<GoldCoastLocation> getLocations()
+    public ArrayList<GoldRushLocation> getLocations()
     {
         return mLocations;
     }
 
     @Override
-    public void onListClickEvent(View v, Long locationId)
+    public void onListClickEventHandler(GoldRushLocation location)
     {
-        GoldCoastLocation location = null;
-        for ( GoldCoastLocation tLoc: mLocations ) {
-            if ( tLoc.getId().equals(locationId)) {
-                location = tLoc;
-                break;
-            }
-        }
+        launchDetailsActivity(location);
+    }
+
+    @Override
+    public void onInfoWindowClickHandler(GoldRushLocation location)
+    {
+        launchDetailsActivity(location);
+    }
+
+    private void launchDetailsActivity(GoldRushLocation location)
+    {
         if (mTwoPane)
         {
             Bundle arguments = new Bundle();
-            arguments.putParcelable(GoldCoastLocationDetailFragment.ARG_LOCATION, location);
-            GoldCoastLocationDetailFragment fragment = new GoldCoastLocationDetailFragment();
+            arguments.putParcelable(LocationDetailFragment.ARG_LOCATION, location);
+            LocationDetailFragment fragment = new LocationDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.goldcoastlocation_detail_container, fragment)
                     .commit();
         } else
         {
-            Context context = v.getContext();
-            Intent intent = new Intent(context, GoldCoastLocationDetailActivity.class);
-            intent.putExtra(GoldCoastLocationDetailFragment.ARG_LOCATION, location);
+            Intent intent = new Intent(this, LocationDetailActivity.class);
+            intent.putExtra(LocationDetailFragment.ARG_LOCATION, location);
 
-            context.startActivity(intent);
+            startActivity(intent);
         }
 
     }
 
+    @Override
+    public void onTourInteraction(GoldRushTour goldRushTour)
+    {
+
+    }
+
+    @Override
+    public ArrayList<GoldRushTour> getTours()
+    {
+        return mTours;
+    }
 }

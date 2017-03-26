@@ -1,7 +1,6 @@
 package org.goldrushtrail.fragments;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,35 +9,33 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
-
 import org.goldrushtrail.R;
-import org.goldrushtrail.locations.GoldRushLocation;
+import org.goldrushtrail.locations.GoldRushTour;
+
+import java.util.ArrayList;
 
 /**
  * A fragment representing a list of Items.
+ * <p/>
+ * Activities containing this fragment MUST implement the {@link GoldRushTourFragmentListener}
  * interface.
  */
-public class SitesListFragment extends Fragment
+public class ToursListFragment extends Fragment
 {
-    private GoldRushSiteFragmentListener mListener;
+
+    private GoldRushTourFragmentListener mListener;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public SitesListFragment()
+    public ToursListFragment()
     {
     }
 
-    public static SitesListFragment newInstance()
+    public static ToursListFragment newInstance()
     {
-        SitesListFragment fragment = new SitesListFragment();
-/*
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);
-*/
+        ToursListFragment fragment = new ToursListFragment();
         return fragment;
     }
 
@@ -46,14 +43,13 @@ public class SitesListFragment extends Fragment
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
-        View view = inflater.inflate(R.layout.fragment_goldrushsite_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_goldrushtour_list, container, false);
 
         // Set the adapter
         if (view instanceof RecyclerView)
@@ -61,7 +57,7 @@ public class SitesListFragment extends Fragment
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(new SitesListRecyclerViewAdapter(mListener));
+            recyclerView.setAdapter(new ToursListRecyclerViewAdapter(mListener));
         }
         return view;
     }
@@ -71,9 +67,9 @@ public class SitesListFragment extends Fragment
     public void onAttach(Context context)
     {
         super.onAttach(context);
-        if (context instanceof GoldRushSiteFragmentListener)
+        if (context instanceof GoldRushTourFragmentListener)
         {
-            mListener = ((GoldRushSiteFragmentListener) context);
+            mListener = (GoldRushTourFragmentListener) context;
         } else
         {
             throw new RuntimeException(context.toString()
@@ -87,6 +83,7 @@ public class SitesListFragment extends Fragment
         super.onDetach();
         mListener = null;
     }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -97,12 +94,9 @@ public class SitesListFragment extends Fragment
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface GoldRushSiteFragmentListener
+    public interface GoldRushTourFragmentListener
     {
-        public ArrayList<GoldRushLocation> getLocations();
-        public void onListClickEventHandler(GoldRushLocation location);
-        public Resources getResources();
-        public String getPackageName();
+        void onTourInteraction(GoldRushTour goldRushTour);
+        ArrayList<GoldRushTour> getTours();
     }
-
 }

@@ -7,26 +7,25 @@ package org.goldrushtrail.locations;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class GoldCoastLocation implements Parcelable {
-    public static enum TOUR_ENUM {YB, EM, JS, FI, PS, CO};
+public class GoldRushTour implements Parcelable {
     private final Long id;
     private final String title;
     private final String tour;
     private final String details;
     private final Double latitude;
     private final Double longitude;
+    private final Double cameraZoom;
     private final String drawable;
-    private final Integer key;
 
-    public GoldCoastLocation(
+    public GoldRushTour(
             Long id,
             String title,
             String tour,
             String details,
             Double latitude,
             Double longitude,
-            String drawable,
-            Integer key
+            Double cameraZoom,
+            String drawable
     ) {
         this.id = id;
         this.title = title;
@@ -34,28 +33,28 @@ public class GoldCoastLocation implements Parcelable {
         this.details = details;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.cameraZoom = cameraZoom;
         this.drawable = drawable;
-        this.key = key;
     }
 
-    private GoldCoastLocation(Parcel in) {
+    private GoldRushTour(Parcel in) {
         id = in.readLong();
         title = in.readString();
         tour = in.readString();
         details = in.readString();
         latitude = in.readDouble();
         longitude = in.readDouble();
+        cameraZoom = in.readDouble();
         drawable = in.readString();
-        key = in.readInt();
     }
 
-    public static final Creator<GoldCoastLocation> CREATOR = new Creator<GoldCoastLocation>() {
-        public GoldCoastLocation createFromParcel(Parcel in) {
-            return new GoldCoastLocation(in);
+    public static final Creator<GoldRushTour> CREATOR = new Creator<GoldRushTour>() {
+        public GoldRushTour createFromParcel(Parcel in) {
+            return new GoldRushTour(in);
         }
 
-        public GoldCoastLocation[] newArray(int size) {
-            return new GoldCoastLocation[size];
+        public GoldRushTour[] newArray(int size) {
+            return new GoldRushTour[size];
         }
     };
 
@@ -88,27 +87,15 @@ public class GoldCoastLocation implements Parcelable {
         return longitude;
     }
 
+    public Double getCameraZoom() { return cameraZoom; }
+
     public String getDrawable() {
         if ( drawable == null ) throw new IllegalStateException("NO IMAGE AVAILABLE!");
         return drawable;
     }
 
-    public Integer getKey() {
-        return key;
-    }
-
     public boolean hasImage() {
         return !(drawable == null || drawable.isEmpty());
-    }
-
-    public TOUR_ENUM tourEnum()  {
-        if (tour.equals("YerbaBuena")) return TOUR_ENUM.YB;
-        else if (tour.equals("Commercial")) return TOUR_ENUM.CO;
-        else if (tour.equals("Embarcadero")) return TOUR_ENUM.EM;
-        else if (tour.equals("Financial")) return TOUR_ENUM.FI;
-        else if (tour.equals("JacksonSquare")) return TOUR_ENUM.JS;
-        else if (tour.equals("Portsmouth")) return TOUR_ENUM.PS;
-        else throw new IllegalStateException("UNKOWN TOUR: "+tour);
     }
 
     @Override
@@ -119,8 +106,8 @@ public class GoldCoastLocation implements Parcelable {
         dest.writeString(details);
         dest.writeDouble(latitude);
         dest.writeDouble(longitude);
+        dest.writeDouble(cameraZoom);
         dest.writeString(drawable);
-        dest.writeInt(key);
     }
 
     @Override
@@ -132,7 +119,7 @@ public class GoldCoastLocation implements Parcelable {
             details.substring(0, 40) + "... , " +
             latitude + ", " +
             longitude + ", " +
-            drawable + ", " +
-            key;
+            cameraZoom + ", " +
+            drawable;
     }
 }

@@ -9,15 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.goldrushtrail.locations.GoldCoastLocation;
+import org.goldrushtrail.locations.GoldRushLocation;
 
 /**
- * A fragment representing a single GoldCoastLocation detail screen.
- * This fragment is either contained in a {@link GoldCoastLocationListActivity}
- * in two-pane mode (on tablets) or a {@link GoldCoastLocationDetailActivity}
+ * A fragment representing a single GoldRushLocation detail screen.
+ * This fragment is either contained in a {@link LocationDetailActivity}
+ * in two-pane mode (on tablets) or a {@link LocationDetailActivity}
  * on handsets.
  */
-public class GoldCoastLocationDetailFragment extends Fragment
+public class LocationDetailFragment extends Fragment
 {
     /**
      * The fragment argument representing the item ID that this fragment
@@ -28,13 +28,13 @@ public class GoldCoastLocationDetailFragment extends Fragment
     /**
      * The dummy content this fragment is presenting.
      */
-    private GoldCoastLocation mLocation;
+    private GoldRushLocation mLocation;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public GoldCoastLocationDetailFragment()
+    public LocationDetailFragment()
     {
     }
 
@@ -63,7 +63,7 @@ public class GoldCoastLocationDetailFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
-        View rootView = inflater.inflate(R.layout.goldcoastlocation_detail, container, false);
+        View rootView = inflater.inflate(R.layout.goldrushlocation_detail, container, false);
 
         // Show the dummy content as text in a TextView.
         if (mLocation != null)

@@ -24,9 +24,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.goldrushtrail.R;
-import org.goldrushtrail.locations.GoldCoastLocation;
+import org.goldrushtrail.locations.GoldRushLocation;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,14 +41,7 @@ public class SitesMapFragment extends Fragment implements OnMapReadyCallback
 {
     private SitesMapFragmentListener mListener;
     private MapView mMap;
-    private static final HashMap<String, Integer> LABEL_COLORS = new HashMap<String, Integer>() {{
-        put(GoldCoastLocation.TOUR_ENUM.YB.toString(), R.color.colorYB);
-        put(GoldCoastLocation.TOUR_ENUM.EM.toString(), R.color.colorEM);
-        put(GoldCoastLocation.TOUR_ENUM.JS.toString(), R.color.colorJS);
-        put(GoldCoastLocation.TOUR_ENUM.FI.toString(), R.color.colorFI);
-        put(GoldCoastLocation.TOUR_ENUM.PS.toString(), R.color.colorPS);
-        put(GoldCoastLocation.TOUR_ENUM.CO.toString(), R.color.colorCO);
-    }};
+    private Map<Marker, GoldRushLocation> mapLocations;
     public SitesMapFragment()
     {
         // Required empty public constructor
@@ -88,7 +82,7 @@ public class SitesMapFragment extends Fragment implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap)
     {
-
+        mapLocations = new HashMap<>();
         try
         {
             // Customise the styling of the base map using a JSON object defined
@@ -102,15 +96,13 @@ public class SitesMapFragment extends Fragment implements OnMapReadyCallback
         } catch (Resources.NotFoundException e) {
             Log.e("Map styling: ", "Can't find style. Error: ", e);
         }
-        for( GoldCoastLocation location: mListener.getLocations())
+        for( GoldRushLocation location: mListener.getLocations())
         {
             LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
             //ss.setSpan(new  BackgroundColorSpan(Color.YELLOW ),57  ,68  ,0);
             //title.setSpan(new BackgroundColorSpan(LABEL_COLORS.get(location.tourEnum())) , 0, location.getTitle().length(), 0);
             //public static enum TOUR_ENUM {YB, EM, JS, FI, PS, CO};
 
-            //TODO: Create a helper method that determines the marker color based off of the tour type
-            //TODO: Create a method that splits the title string and adds a '\n' in the middle if it exceeds a certain length, since some titles go off the screen.
             /*
             markerOptions = new MarkerOptions()
                 .title()
@@ -119,42 +111,42 @@ public class SitesMapFragment extends Fragment implements OnMapReadyCallback
 
             MarkerOptions markerOptions;
 
-            if(location.tourEnum() == GoldCoastLocation.TOUR_ENUM.YB)
+            if(location.tourEnum() == GoldRushLocation.TOUR_ENUM.YB)
             {
                 markerOptions = new MarkerOptions()
                         .position(latLng)
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
                         .title(location.getTitle());
             }
-            else if(location.tourEnum() == GoldCoastLocation.TOUR_ENUM.EM)
+            else if(location.tourEnum() == GoldRushLocation.TOUR_ENUM.EM)
             {
                 markerOptions = new MarkerOptions()
                         .position(latLng)
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
                         .title(location.getTitle());
             }
-            else if(location.tourEnum() == GoldCoastLocation.TOUR_ENUM.JS)
+            else if(location.tourEnum() == GoldRushLocation.TOUR_ENUM.JS)
             {
                 markerOptions = new MarkerOptions()
                         .position(latLng)
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW))
                         .title(location.getTitle());
             }
-            else if(location.tourEnum() == GoldCoastLocation.TOUR_ENUM.FI)
+            else if(location.tourEnum() == GoldRushLocation.TOUR_ENUM.FI)
             {
                 markerOptions = new MarkerOptions()
                         .position(latLng)
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
                         .title(location.getTitle());
             }
-            else if(location.tourEnum() == GoldCoastLocation.TOUR_ENUM.PS)
+            else if(location.tourEnum() == GoldRushLocation.TOUR_ENUM.PS)
             {
                 markerOptions = new MarkerOptions()
                         .position(latLng)
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
                         .title(location.getTitle());
             }
-            else if(location.tourEnum() == GoldCoastLocation.TOUR_ENUM.CO)
+            else if(location.tourEnum() == GoldRushLocation.TOUR_ENUM.CO)
             {
                 markerOptions = new MarkerOptions()
                         .position(latLng)
@@ -169,7 +161,8 @@ public class SitesMapFragment extends Fragment implements OnMapReadyCallback
 
 
             Log.d("In the for-loop", "location.tourEnum() : "+location.tourEnum());
-            googleMap.addMarker(markerOptions);
+            Marker marker = googleMap.addMarker(markerOptions);
+            mapLocations.put(marker, location);
 
         }
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(37.795197,-122.400000), 14));
@@ -182,17 +175,11 @@ public class SitesMapFragment extends Fragment implements OnMapReadyCallback
 
             @Override
             public void onInfoWindowClick(Marker marker) {
-                //TODO: Put the location.getTitle() in an intent for the GCLDetailActivity, so that it can iterate through the ArrayList to find the GCLObject
-                //TODO: Ask Karl if you should implement the DetailActivity now or wait
-                String title = marker.getTitle();
-                //Intent intent = new Intent(this, DetailFragment.class); //TODO: Put the appropriate class file in here
-                //intent.putExtras(title);
-                Toast.makeText(getActivity().getApplicationContext(), "Info window clicked \n"+title, Toast.LENGTH_SHORT).show();
-                //startActivity(intent);
+                mListener.onInfoWindowClickHandler(mapLocations.get(marker));
             }
         });
     }
-    // TODO: Rename method, update argument and hook method into UI event
+
     public void onButtonPressed(Uri uri)
     {
         if (mListener != null)
@@ -262,8 +249,8 @@ public class SitesMapFragment extends Fragment implements OnMapReadyCallback
      */
     public interface SitesMapFragmentListener
     {
-        public ArrayList<GoldCoastLocation> getLocations();
-        public void onListClickEvent(View v, Long id);
+        public ArrayList<GoldRushLocation> getLocations();
+        public void onInfoWindowClickHandler(GoldRushLocation location);
         public Resources getResources();
         public String getPackageName();
     }

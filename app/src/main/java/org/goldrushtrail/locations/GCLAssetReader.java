@@ -18,19 +18,19 @@ import java.util.ArrayList;
 
 public class GCLAssetReader
 {
-    public ArrayList<GoldCoastLocation> getGoldCoastLocations(Context context) {
-        ArrayList<GoldCoastLocation> listRows = new ArrayList<>();
+    public ArrayList<GoldRushLocation> getGoldRushLocations(Context context) {
+        ArrayList<GoldRushLocation> listRows = new ArrayList<>();
 
         try
         {
             Reader reader = new InputStreamReader(
-                    context.getAssets().open("GoldCoastData.txt"),
-                    StandardCharsets.UTF_8
+                    context.getAssets().open("GoldRushLocations.txt"),
+                    "UTF-8"
             );
             final CSVParser parser = new CSVParser( reader, CSVFormat.EXCEL );
             for (CSVRecord record : parser.getRecords())
             {
-                GoldCoastLocation gcl = new GoldCoastLocation(
+                GoldRushLocation gcl = new GoldRushLocation(
                     record.getRecordNumber(),
                     record.get(0),
                     record.get(1),
@@ -50,4 +50,35 @@ public class GCLAssetReader
         return listRows;
     }
 
+    public ArrayList<GoldRushTour> getGoldRushTours(Context context) {
+        ArrayList<GoldRushTour> listRows = new ArrayList<>();
+
+        try
+        {
+            Reader reader = new InputStreamReader(
+                    context.getAssets().open("GoldRushTours.txt"),
+                    "UTF-8"
+            );
+            final CSVParser parser = new CSVParser( reader, CSVFormat.EXCEL );
+            for (CSVRecord record : parser.getRecords())
+            {
+                GoldRushTour tour = new GoldRushTour(
+                        record.getRecordNumber(),
+                        record.get(0),
+                        record.get(1),
+                        record.get(2),
+                        Double.parseDouble(record.get(3)),
+                        Double.parseDouble(record.get(4)),
+                        Double.parseDouble(record.get(5)),
+                        record.get(6)
+                );
+                listRows.add(tour);
+            }
+            parser.close();
+            reader.close();
+        } catch ( IOException ex) {
+            throw new RuntimeException(ex);
+        }
+        return listRows;
+    }
 }

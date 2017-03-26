@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.goldrushtrail.R;
-import org.goldrushtrail.locations.GoldCoastLocation;
+import org.goldrushtrail.locations.GoldRushLocation;
 
 import java.util.ArrayList;
 
@@ -18,7 +18,7 @@ public class SitesListRecyclerViewAdapter
 {
 
     private final SitesListFragment.GoldRushSiteFragmentListener mListener;
-    private final ArrayList<GoldCoastLocation> mLocations;
+    private final ArrayList<GoldRushLocation> mLocations;
     private final Resources mResources;
     private final String mPackageName;
 
@@ -35,7 +35,7 @@ public class SitesListRecyclerViewAdapter
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.goldcoastlocation_list_content, parent, false);
+                .inflate(R.layout.goldrushlocation_list_content, parent, false);
         return new ViewHolder(view);
     }
 
@@ -67,7 +67,7 @@ public class SitesListRecyclerViewAdapter
             @Override
             public void onClick(View v)
             {
-                mListener.onListClickEvent(v, holder.mLocation.getId());
+                mListener.onListClickEventHandler(holder.mLocation);
             }
         });
     }
@@ -84,14 +84,14 @@ public class SitesListRecyclerViewAdapter
         private final TextView mTitleView;
         private final TextView mDetailsView;
         private final ImageView mImageView;
-        private GoldCoastLocation mLocation;
+        private GoldRushLocation mLocation;
 
         public ViewHolder(View view)
         {
             super(view);
             mView = view;
-            mTitleView = (TextView) view.findViewById(R.id.title);
-            mDetailsView = (TextView) view.findViewById(R.id.details);
+            mTitleView = (TextView) view.findViewById(R.id.siteTitle);
+            mDetailsView = (TextView) view.findViewById(R.id.siteDetail);
             mImageView = (ImageView) view.findViewById(R.id.imageView);
         }
 

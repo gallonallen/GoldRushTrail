@@ -14,7 +14,6 @@
     <!--     TODO: Insert the SplashActivity.  Make sure you use the intent-filter to declare it main and launcher -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -31,7 +30,7 @@
             android:name=".NavigationActivity"
             android:label="@string/title_goldcoastlocation_list">
         </activity>
-        <activity android:name=".GoldCoastLocationDetailActivity"></activity>
+        <activity android:name=".LocationDetailActivity"></activity>
         <activity android:name=".SplashActivity"
                   android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
