@@ -3,8 +3,8 @@
     <string name="goldcoastthumbnail">Gold Coast Trail</string>
     <string name="title_goldcoastlocation_list">GoldCoastLocations</string>
     <string name="title_goldcoastlocation_detail">GoldCoastLocation Detail</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-
+    <string name="title_sites">Sites</string>
+    <string name="title_map">Map</string>
+    <string name="title_tours">Tours</string>
+    <!-- TODO: change the string names to correlate with the View string EG title_list -->
 </resources>

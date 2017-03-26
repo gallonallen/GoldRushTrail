@@ -18,6 +18,7 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -88,6 +89,19 @@ public class SitesMapFragment extends Fragment implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap)
     {
 
+        try
+        {
+            // Customise the styling of the base map using a JSON object defined
+            // in a raw resource file.
+            boolean success = googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(
+                    getActivity(), R.raw.style_json));
+
+            if (!success) {
+                Log.e("Map styling: ", "Style parsing failed.");
+            }
+        } catch (Resources.NotFoundException e) {
+            Log.e("Map styling: ", "Can't find style. Error: ", e);
+        }
         for( GoldCoastLocation location: mListener.getLocations())
         {
             LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
@@ -102,6 +116,7 @@ public class SitesMapFragment extends Fragment implements OnMapReadyCallback
                 .title()
                 .icon(getIcon(location.toursEnum()))
              */
+
             MarkerOptions markerOptions;
 
             if(location.tourEnum() == GoldCoastLocation.TOUR_ENUM.YB)

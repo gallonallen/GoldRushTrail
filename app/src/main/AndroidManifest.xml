@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="org.goldrushtrail">
+    package="org.goldrushtrail">
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -11,7 +11,9 @@
      The following two permissions are not required to use
      Google Maps Android API v2, but are recommended.
     -->
+    <!--     TODO: Insert the SplashActivity.  Make sure you use the intent-filter to declare it main and launcher -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
@@ -23,25 +25,21 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key"/>
+            android:value="@string/google_maps_key" />
+
         <activity
             android:name=".NavigationActivity"
-            android:label="@string/title_goldcoastlocation_list"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+            android:label="@string/title_goldcoastlocation_list">
+        </activity>
+        <activity android:name=".GoldCoastLocationDetailActivity"></activity>
+        <activity android:name=".SplashActivity"
+                  android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".GoldCoastLocationDetailActivity"
-            android:label="@string/title_goldcoastlocation_list"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
-        </activity>
     </application>
-
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-
 
 </manifest>
