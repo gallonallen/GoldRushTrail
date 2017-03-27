@@ -20,7 +20,7 @@ public class SplashActivity extends AppCompatActivity
         setContentView(R.layout.activity_splash);
         imageView = (ImageView)findViewById(R.id.image_splash);
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        final Intent intent = new Intent(getApplicationContext(), NavigationActivity.class);
+        final Intent intent = new Intent(getApplicationContext(), NavigationDrawerActivity.class);
         Thread thread = new Thread()
         {
             @Override
@@ -29,7 +29,7 @@ public class SplashActivity extends AppCompatActivity
                 super.run();
                 try
                 {
-                    sleep(3000);
+                    sleep(500);
                     startActivity(intent);
                     finish();
                 }
