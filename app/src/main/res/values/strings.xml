@@ -15,5 +15,9 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="about">About</string>
+    <string name="developers">Developers</string>
+    <string name="goldrushtrail_org">GoldRushTrail.org</string>
+    <string name="help">Help</string>
     <!-- TODO: change the string names to correlate with the View string EG title_list -->
 </resources>

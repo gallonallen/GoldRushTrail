@@ -67,7 +67,7 @@ public class SitesListRecyclerViewAdapter
             @Override
             public void onClick(View v)
             {
-                mListener.onListClickEventHandler(holder.mLocation);
+                mListener.sitesListClickEventHandler(holder.mLocation);
             }
         });
     }

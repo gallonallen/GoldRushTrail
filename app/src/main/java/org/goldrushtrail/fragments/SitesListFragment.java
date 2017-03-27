@@ -100,7 +100,7 @@ public class SitesListFragment extends Fragment
     public interface GoldRushSiteFragmentListener
     {
         public ArrayList<GoldRushLocation> getLocations();
-        public void onListClickEventHandler(GoldRushLocation location);
+        public void sitesListClickEventHandler(GoldRushLocation location);
         public Resources getResources();
         public String getPackageName();
     }

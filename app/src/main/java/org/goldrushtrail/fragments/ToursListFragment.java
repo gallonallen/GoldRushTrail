@@ -96,7 +96,7 @@ public class ToursListFragment extends Fragment
      */
     public interface GoldRushTourFragmentListener
     {
-        void onTourInteraction(GoldRushTour goldRushTour);
+        void tourListClickEventHandler(GoldRushTour tour);
         ArrayList<GoldRushTour> getTours();
     }
 }

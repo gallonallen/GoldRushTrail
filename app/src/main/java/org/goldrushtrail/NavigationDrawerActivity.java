@@ -132,7 +132,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
     }
 
     @Override
-    public void onListClickEventHandler(GoldRushLocation location)
+    public void sitesListClickEventHandler(GoldRushLocation location)
     {
         launchDetailsActivity(location);
     }
@@ -152,9 +152,12 @@ public class NavigationDrawerActivity extends AppCompatActivity
     }
 
     @Override
-    public void onTourInteraction(GoldRushTour goldRushTour)
+    public void tourListClickEventHandler(GoldRushTour tour)
     {
+        Intent intent = new Intent(this, TourDetailActivity.class);
+        intent.putExtra(TourDetailFragment.ARG_TOUR, tour);
 
+        startActivity(intent);
     }
 
     @Override
