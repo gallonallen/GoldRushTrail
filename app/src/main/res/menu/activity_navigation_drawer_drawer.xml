@@ -3,20 +3,20 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_menu_about"
             android:title="@string/about"/>
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
+            android:id="@+id/nav_help"
+            android:icon="@drawable/ic_help_outline_black_24dp"
             android:title="@string/help"/>
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:id="@+id/nav_web"
+            android:icon="@drawable/ic_laptop_mac_black_24dp"
             android:title="@string/goldrushtrail_org"/>
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
+            android:id="@+id/nav_developers"
+            android:icon="@drawable/ic_developer_mode_black_24dp"
             android:title="@string/developers"/>
     </group>
 
