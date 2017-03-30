@@ -1,6 +1,7 @@
 package org.goldrushtrail;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
@@ -19,6 +20,8 @@ import org.goldrushtrail.fragments.ToursListFragment;
 import org.goldrushtrail.locations.GCLAssetReader;
 import org.goldrushtrail.locations.GoldRushLocation;
 import org.goldrushtrail.locations.GoldRushTour;
+import org.goldrushtrail.locations.NavigationItemHelpActivity;
+
 
 import java.util.ArrayList;
 
@@ -108,14 +111,20 @@ public class NavigationDrawerActivity extends AppCompatActivity
 
         if (id == R.id.nav_about)
         {
-            // Handle the camera action
-        } else if (id == R.id.nav_help)
-        {
 
-        } else if (id == R.id.nav_web)
+        }
+        else if (id == R.id.nav_help)
         {
-
-        } else if (id == R.id.nav_developers)
+            Intent intent = new Intent(getApplicationContext(), NavigationItemHelpActivity.class);
+            startActivity(intent);
+        }
+        else if (id == R.id.nav_web)
+        {
+            Uri uri = Uri.parse("http://goldrushtrail.org/");
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            startActivity(intent);
+        }
+        else if (id == R.id.nav_developers)
         {
 
         }

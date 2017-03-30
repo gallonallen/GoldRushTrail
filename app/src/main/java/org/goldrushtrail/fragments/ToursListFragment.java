@@ -32,7 +32,13 @@ public class ToursListFragment extends Fragment
     public ToursListFragment()
     {
     }
-
+     //Why use newInstance() in this case???
+     /*
+     Definition:
+     The newInstance() method of Class class can invoke zero-argument constructor
+     whereas newInstance() method of Constructor class can invoke any number of arguments.
+     So Constructor class is preferred over Class class.
+      */
     public static ToursListFragment newInstance()
     {
         ToursListFragment fragment = new ToursListFragment();

@@ -99,15 +99,9 @@ public class SitesMapFragment extends Fragment implements OnMapReadyCallback
         for( GoldRushLocation location: mListener.getLocations())
         {
             LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
-            //ss.setSpan(new  BackgroundColorSpan(Color.YELLOW ),57  ,68  ,0);
-            //title.setSpan(new BackgroundColorSpan(LABEL_COLORS.get(location.tourEnum())) , 0, location.getTitle().length(), 0);
             //public static enum TOUR_ENUM {YB, EM, JS, FI, PS, CO};
 
-            /*
-            markerOptions = new MarkerOptions()
-                .title()
-                .icon(getIcon(location.toursEnum()))
-             */
+
 
             MarkerOptions markerOptions;
 
