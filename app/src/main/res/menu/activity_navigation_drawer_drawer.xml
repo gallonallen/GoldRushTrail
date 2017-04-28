@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--TODO: Replace the HelpActivity and help_activity.xml files with Contact...
+    TODO: Put the titles in the string folder(for translation purposes)-->
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
@@ -8,12 +10,12 @@
             android:title="@string/about"/>
         <item
             android:id="@+id/nav_help"
-            android:icon="@drawable/ic_help_outline_black_24dp"
-            android:title="@string/help"/>
+            android:icon="@drawable/ic_contact"
+            android:title="Contact"/>
         <item
             android:id="@+id/nav_web"
             android:icon="@drawable/ic_laptop_mac_black_24dp"
-            android:title="@string/goldrushtrail_org"/>
+            android:title="Website"/>
         <item
             android:id="@+id/nav_developers"
             android:icon="@drawable/ic_developer_mode_black_24dp"

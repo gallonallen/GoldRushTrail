@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:background="@color/colorPaper"
+    tools:context="org.goldrushtrail.NavigationItemAboutActivity"
+    tools:showIn="@layout/activity_navigation_item_about">
+
+    <TextView
+        android:id="@+id/about_paragraphs"
+        android:layout_width="370dp"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text="@string/about_text"
+        android:textAlignment="viewStart"
+        android:maxLines="200"
+        android:gravity="center_horizontal"
+        android:textColor="@color/colorBlack"
+        android:paddingLeft="34dp"
+        android:textSize="18sp"
+        android:foregroundGravity="center"
+        android:paddingTop="38dp"/>
+
+    <ImageView
+        android:id="@+id/image_sponsor1"
+        android:layout_width="388dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/sponsor1"
+        android:foregroundGravity="center"
+        android:onClick="onClick"
+        tools:layout_editor_absoluteY="167dp"
+        tools:layout_editor_absoluteX="-2dp" />
+
+    <ImageView
+        android:id="@+id/image_sponsor2"
+        android:layout_width="388dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/sponsor2"
+        android:foregroundGravity="center"
+        android:onClick="onClick"
+        tools:layout_editor_absoluteY="229dp"
+        tools:layout_editor_absoluteX="-2dp" />
+
+    <ImageView
+        android:id="@+id/image_sponsor3"
+        android:layout_width="388dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/sponsor3"
+        android:foregroundGravity="center"
+        android:onClick="onClick"
+        tools:layout_editor_absoluteY="353dp"
+        tools:layout_editor_absoluteX="-2dp" />
+
+</android.support.constraint.ConstraintLayout>

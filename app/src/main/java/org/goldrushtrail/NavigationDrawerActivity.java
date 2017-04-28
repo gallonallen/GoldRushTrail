@@ -85,7 +85,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
 
         //Manually displaying the first fragment - one time only
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_layout, SitesListFragment.newInstance());
+        transaction.replace(R.id.frame_layout, ToursListFragment.newInstance());
         transaction.commit();
 
     }
@@ -111,7 +111,8 @@ public class NavigationDrawerActivity extends AppCompatActivity
 
         if (id == R.id.nav_about)
         {
-
+            Intent intent = new Intent(getApplicationContext(), NavigationItemAboutActivity.class);
+            startActivity(intent);
         }
         else if (id == R.id.nav_help)
         {
@@ -120,13 +121,14 @@ public class NavigationDrawerActivity extends AppCompatActivity
         }
         else if (id == R.id.nav_web)
         {
-            Uri uri = Uri.parse("http://goldrushtrail.org/");
+            Uri uri = Uri.parse("http://www.goldrushtrail.org/");
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             startActivity(intent);
         }
         else if (id == R.id.nav_developers)
         {
-
+            Intent intent = new Intent(getApplicationContext(), NavigationItemDevelopersActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
