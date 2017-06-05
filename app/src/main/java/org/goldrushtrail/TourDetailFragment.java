@@ -45,8 +45,9 @@ public class TourDetailFragment extends Fragment
 
         if (getArguments().containsKey(ARG_TOUR))
         {
-            // Load the dummy content specified by the fragment
-            // arguments. In a real-world scenario, use a Loader
+            // Load the dummy content specified by the
+            //           FRAGMENT ARGUMENTS.
+            // In a real-world scenario, use a Loader
             // to load content from a content provider.
             mTour = getArguments().getParcelable(ARG_TOUR);
 
@@ -55,6 +56,8 @@ public class TourDetailFragment extends Fragment
             if (appBarLayout != null)
             {
                 appBarLayout.setTitle(mTour.getTitle());
+                //appBarLayout.getContentScrim();//arg = Drawable
+                //TODO: Find out how to create a Drawable object programmatically.
             }
         }
     }

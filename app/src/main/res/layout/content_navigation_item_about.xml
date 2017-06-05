@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+TODO: Review Layouts, then learn specifically about ConstraintLayout
+
+-->
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -29,29 +33,26 @@
         android:layout_width="388dp"
         android:layout_height="wrap_content"
         android:src="@drawable/sponsor1"
-        android:foregroundGravity="center"
+        android:foregroundGravity="bottom"
         android:onClick="onClick"
-        tools:layout_editor_absoluteY="167dp"
-        tools:layout_editor_absoluteX="-2dp" />
+         />
 
     <ImageView
         android:id="@+id/image_sponsor2"
         android:layout_width="388dp"
         android:layout_height="wrap_content"
         android:src="@drawable/sponsor2"
-        android:foregroundGravity="center"
         android:onClick="onClick"
         tools:layout_editor_absoluteY="229dp"
-        tools:layout_editor_absoluteX="-2dp" />
+         />
 
     <ImageView
         android:id="@+id/image_sponsor3"
         android:layout_width="388dp"
         android:layout_height="wrap_content"
         android:src="@drawable/sponsor3"
-        android:foregroundGravity="center"
+        android:foregroundGravity="bottom"
         android:onClick="onClick"
-        tools:layout_editor_absoluteY="353dp"
-        tools:layout_editor_absoluteX="-2dp" />
+         />
 
 </android.support.constraint.ConstraintLayout>

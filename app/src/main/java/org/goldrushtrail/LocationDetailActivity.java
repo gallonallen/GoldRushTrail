@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 /**
@@ -42,6 +43,11 @@ public class LocationDetailActivity extends AppCompatActivity
         {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+        //NEW: Added June 4.
+        //TODO: Go back to the original position of the ListView when back is pressed.
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // savedInstanceState is non-null when there is fragment state
         // saved from previous configurations of this activity

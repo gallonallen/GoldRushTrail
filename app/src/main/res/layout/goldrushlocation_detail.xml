@@ -7,3 +7,9 @@
           android:padding="16dp"
           android:textIsSelectable="true"
           tools:context="org.goldrushtrail.LocationDetailFragment"/>
+
+<!--
+TODO: Find out what the first 2 lines and the last line in the first tag of every xml layout does.
+ RATIONALE: You need to put the images on the top, but when you "swapped" the content, you got an error.
+-->
+

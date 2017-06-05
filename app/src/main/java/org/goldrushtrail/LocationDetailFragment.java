@@ -1,13 +1,19 @@
 package org.goldrushtrail;
 
 import android.app.Activity;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.DrawableRes;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.Toolbar;
 
 import org.goldrushtrail.locations.GoldRushLocation;
 
@@ -37,12 +43,14 @@ public class LocationDetailFragment extends Fragment
     public LocationDetailFragment()
     {
     }
+    //Added June 4 for the imagery
+    private Resources mResources;
+    private String mPackName;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-
         if (getArguments().containsKey(ARG_LOCATION))
         {
             // Load the dummy content specified by the fragment
@@ -50,11 +58,21 @@ public class LocationDetailFragment extends Fragment
             // to load content from a content provider.
             mLocation = getArguments().getParcelable(ARG_LOCATION);
 
+
             Activity activity = this.getActivity();
+            mPackName = activity.getApplicationContext().getPackageName();
+            mResources = activity.getResources();
             CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
             if (appBarLayout != null)
             {
                 appBarLayout.setTitle(mLocation.getTitle());
+                Log.d("onCreate(): ", "mLocation.getDrawable()"+mLocation.getDrawable());
+                //TODO: NEW: Look at SitesListRecyclerViewAdapter  for inspiration
+                int imageInt = mResources.getIdentifier(mLocation.getDrawable(), "drawable", mPackName);
+
+                //The lines below works, but you need something that will display images based upon what is pressed
+                Drawable drawable = getResources().getDrawable( imageInt );
+                appBarLayout.setBackground(drawable);
             }
         }
     }

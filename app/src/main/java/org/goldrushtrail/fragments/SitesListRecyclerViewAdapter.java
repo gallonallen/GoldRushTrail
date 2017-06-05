@@ -42,6 +42,7 @@ public class SitesListRecyclerViewAdapter
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position)
     {
+        //ViewHolder is the inner class below
         holder.mLocation = mLocations.get(position);
         holder.mTitleView.setText(mLocations.get(position).getTitle());
         String details = mLocations.get(position).getDetails();
