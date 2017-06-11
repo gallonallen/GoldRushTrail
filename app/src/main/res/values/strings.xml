@@ -19,11 +19,12 @@
     <string name="developers">Developers</string>
     <string name="goldrushtrail_org">GoldRushTrail.org</string>
     <string name="help">Help</string>
+    <string name="help_email">Email: </string>
     <string name="title_activity_navigation_item_about">About</string>
     <string name="title_activity_navigation_item_help">Help;</string>
     <string name="title_activity_navigation_item_developers">Developers</string>
     <string name="about_text">
-        \n\t\t\tThe Gold Rush Trail Foundation, a non-profit corporation, is sponsored by:\n\n\n</string>
+        \n\t\t\tThe Gold Rush Trail Foundation, a non-profit organization, is sponsored by:\n</string>
     <string name="about_text2"></string>
     <!-- TODO: change the string names to correlate with the View string EG title_list -->
 </resources>

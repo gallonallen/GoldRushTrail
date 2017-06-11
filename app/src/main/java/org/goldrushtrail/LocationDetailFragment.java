@@ -57,21 +57,15 @@ public class LocationDetailFragment extends Fragment
             // arguments. In a real-world scenario, use a Loader
             // to load content from a content provider.
             mLocation = getArguments().getParcelable(ARG_LOCATION);
-
-
             Activity activity = this.getActivity();
             mPackName = activity.getApplicationContext().getPackageName();
             mResources = activity.getResources();
             CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
             if (appBarLayout != null)
             {
-                appBarLayout.setTitle(mLocation.getTitle());
-                Log.d("onCreate(): ", "mLocation.getDrawable()"+mLocation.getDrawable());
-                //TODO: NEW: Look at SitesListRecyclerViewAdapter  for inspiration
                 int imageInt = mResources.getIdentifier(mLocation.getDrawable(), "drawable", mPackName);
-
-                //The lines below works, but you need something that will display images based upon what is pressed
                 Drawable drawable = getResources().getDrawable( imageInt );
+                appBarLayout.setTitle(mLocation.getTitle());
                 appBarLayout.setBackground(drawable);
             }
         }

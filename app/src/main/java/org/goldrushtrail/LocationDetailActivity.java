@@ -6,6 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
+
+import org.goldrushtrail.fragments.SitesListFragment;
 
 /**
  * An activity representing a single GoldRushLocation detail screen. This
@@ -44,10 +48,10 @@ public class LocationDetailActivity extends AppCompatActivity
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
         //NEW: Added June 4.
-        //TODO: Go back to the original position of the ListView when back is pressed.
         final Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //TODO: Make the toolbar BLACK since the font is white.  It can help visually differentiate the Activity from the MAIN activitieS
 
         // savedInstanceState is non-null when there is fragment state
         // saved from previous configurations of this activity
@@ -85,9 +89,15 @@ public class LocationDetailActivity extends AppCompatActivity
             //
             // http://developer.android.com/design/patterns/navigation.html#up-vs-back
             //
-            navigateUpTo(new Intent(this, NavigationDrawerActivity.class));
+            navigateUpTo(new Intent(this, SitesListFragment.class));
+            //navigateUpTo(new Intent(this, NavigationDrawerActivity.class));
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void toolbarClick(View view)
+    {
+        Toast.makeText(getApplicationContext(), "The onclick works", Toast.LENGTH_SHORT ).show();
     }
 }

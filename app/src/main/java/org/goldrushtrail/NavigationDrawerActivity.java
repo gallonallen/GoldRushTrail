@@ -112,6 +112,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
         if (id == R.id.nav_about)
         {
             Intent intent = new Intent(getApplicationContext(), NavigationItemAboutActivity.class);
+            //item.setCheckable(false);
             startActivity(intent);
         }
         else if (id == R.id.nav_help)

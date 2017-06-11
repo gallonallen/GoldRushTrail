@@ -1,6 +1,8 @@
 package org.goldrushtrail;
 
 import android.app.Activity;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
@@ -8,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.goldrushtrail.locations.GoldRushTour;
 
@@ -34,6 +37,9 @@ public class TourDetailFragment extends Fragment
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
+    //Added June 4 for the imagery
+    private Resources mResources;
+    private String mPackName;
     public TourDetailFragment()
     {
     }
@@ -50,14 +56,16 @@ public class TourDetailFragment extends Fragment
             // In a real-world scenario, use a Loader
             // to load content from a content provider.
             mTour = getArguments().getParcelable(ARG_TOUR);
-
             Activity activity = this.getActivity();
+            mPackName = activity.getApplicationContext().getPackageName();
+            mResources = activity.getResources();
             CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.tour_toolbar_layout);
             if (appBarLayout != null)
             {
                 appBarLayout.setTitle(mTour.getTitle());
-                //appBarLayout.getContentScrim();//arg = Drawable
-                //TODO: Find out how to create a Drawable object programmatically.
+                int imageInt = mResources.getIdentifier(mTour.getDrawable(), "drawable", mPackName);
+                Drawable drawable = getResources().getDrawable( imageInt );
+                appBarLayout.setBackground(drawable);
             }
         }
     }
@@ -76,4 +84,6 @@ public class TourDetailFragment extends Fragment
 
         return rootView;
     }
+
 }
+

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorPaper"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="org.goldrushtrail.NavigationItemAboutActivity">
@@ -16,11 +18,50 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            app:popupTheme="@style/AppTheme.PopupOverlay"/>
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_navigation_item_about" />
+
+    <!-- Added June 10: The scrollview and all of the nested tags within it.-->
 
 
-</android.support.design.widget.CoordinatorLayout>
+    <TextView
+        android:id="@+id/about_paragraphs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorBlack"
+        android:text="@string/about_text"
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="16dp"/>
+    <ImageView
+        android:id="@+id/image_sponsor1"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/sponsor1"
+        android:layout_gravity="center"
+        android:paddingBottom="11dp"
+        android:onClick="getWebsite"/>
+    <ImageView
+        android:id="@+id/image_sponsor2"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/sponsor2"
+        android:layout_gravity="center"
+        android:paddingBottom="8dp"
+        android:onClick="getWebsite"/>
+    <ImageView
+        android:id="@+id/image_sponsor3"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/sponsor3"
+        android:layout_gravity="center"
+        android:paddingBottom="8dp"
+        android:onClick="getWebsite"/>
+
+
+
+</LinearLayout>

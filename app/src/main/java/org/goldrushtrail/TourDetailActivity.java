@@ -4,7 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
+
+import org.goldrushtrail.fragments.ToursListFragment;
 
 /**
  * An activity representing a single GoldRushTour detail screen. This
@@ -20,28 +25,15 @@ public class TourDetailActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goldrushtour_detail);
-
-/*
-        Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
-        setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                Snackbar.make(view, "Replace with your own detail action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-*/
         // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)
         {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.tour_detail_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // savedInstanceState is non-null when there is fragment state
         // saved from previous configurations of this activity
@@ -79,9 +71,14 @@ public class TourDetailActivity extends AppCompatActivity
             //
             // http://developer.android.com/design/patterns/navigation.html#up-vs-back
             //
-            navigateUpTo(new Intent(this, NavigationDrawerActivity.class));
+            navigateUpTo(new Intent(this, ToursListFragment.class));
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void toolbarClick(View view)
+    {
+        Toast.makeText(getApplicationContext(), "The onclick works", Toast.LENGTH_SHORT ).show();
     }
 }

@@ -30,8 +30,7 @@
         <activity
             android:name=".LocationDetailActivity" />
         <activity
-            android:name=".TourDetailActivity"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
+            android:name=".TourDetailActivity" />
         <activity
             android:name=".SplashActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">

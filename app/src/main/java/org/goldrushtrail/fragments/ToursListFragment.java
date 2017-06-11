@@ -106,3 +106,18 @@ public class ToursListFragment extends Fragment
         ArrayList<GoldRushTour> getTours();
     }
 }
+
+/*
+FROM: NavigationDrawerActivity.java
+
+    @Override
+    public void tourListClickEventHandler(GoldRushTour tour)
+    {
+        Intent intent = new Intent(this, TourDetailActivity.class);
+        intent.putExtra(TourDetailFragment.ARG_TOUR, tour);
+                        //TourDetailFragment.ARG_TOUR is used
+                        //as the 'key' for the 'value' "tour"
+
+        startActivity(intent);
+    }
+ */

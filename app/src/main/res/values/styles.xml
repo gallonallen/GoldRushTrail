@@ -14,6 +14,18 @@
         <item name="android:colorBackground">@color/colorPrimary</item>
         <item name="android:textColor">@color/colorBlack</item>
     </style>
+    <style name="TextAppearance.Design.CollapsingToolbar.Expanded.Shadow">
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowRadius">20</item>
+        <item name="android:shadowColor">@android:color/black</item>
+    </style>
+    <style name="TextAppearance.Design.CollapsingToolbar.Expanded.Shadow2">
+        <item name="android:shadowDy">1</item>
+        <item name="android:shadowDx">1</item>
+        <item name="android:shadowRadius">3</item>
+        <item name="android:shadowColor">@android:color/black</item>
+    </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
