@@ -98,7 +98,7 @@ public class LocationDetailFragment extends Fragment
         // Show the dummy content as text in a TextView.
         if (mLocation != null)
         {
-            //Adding the extra whitespace so that the user can scroll the last line of the paragraph higher.
+            //Adding the extra whitespace so that the user can scroll the last line of the paragraph up to the middle of the screen, rather then view it from the very bottom(UX).
             ((TextView) rootView.findViewById(R.id.goldcoastlocation_detail)).setText(mLocation.getDetails()+"\n\n\n\n\n\n\n\n\n\n");
         }
 
@@ -118,40 +118,4 @@ public class LocationDetailFragment extends Fragment
     }
 }
 
-/*
-            mTour = getArguments().getParcelable(ARG_TOUR);
-            Activity activity = this.getActivity();
-            mPackName = activity.getApplicationContext().getPackageName();
-            mResources = activity.getResources();
-            CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.tour_toolbar_layout);
-            if (appBarLayout != null)
-            {
-                appBarLayout.setTitle(mTour.getTitle());
-                int imageInt = mResources.getIdentifier(mTour.getDrawable(), "drawable", mPackName);
-                //Drawable drawable = getResources().getDrawable( imageInt );
-                //TODO: Programmatically change the dimensions of the image via cropping, then setBackground(drawable); .
-                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), imageInt);
-                Log.d("Bitmap width", " "+bitmap.getWidth());
-                Log.d("Bitmap height", " "+bitmap.getHeight());
-                //The dimensions of the CollapsableToolbarLayout is precisely W: 1000, H: 488
-                int width = bitmap.getWidth();
-                int height = getNewHeight(width);
-                int yCoordinate = getYCoordinate(bitmap.getHeight(), height);
 
-                bitmap = Bitmap.createBitmap(bitmap, 0, yCoordinate, width, height);
-                Drawable drawable = new BitmapDrawable(activity.getResources(),bitmap);
-                appBarLayout.setBackground(drawable);
-            }
-
-    public int getNewHeight(int width)
-    {
-        //The dimensions of the CollapsableToolbarLayout is precisely W: 1000, H: 488
-        double newHeight = width * .488;
-        return (int)newHeight;
-    }
-    public int getYCoordinate(int bitmapHeight, int imageHeight)
-    {
-        int difference = bitmapHeight - imageHeight;
-        return difference/2;
-    }
- */

@@ -13,7 +13,7 @@
      The following two permissions are not required to use
      Google Maps Android API v2, but are recommended.
     -->
-    <!-- TODO: Make sure the android manifest & gradle have the DEBUGGABLE parameter set to FALSE on release -->
+    <!-- TODO: Change the name of the  NavigationItemHelpActivity to NavigationItemContactActivity -->
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -76,7 +76,6 @@
         <activity
             android:name=".LocationDetailImageActivity"
             android:screenOrientation="portrait"
-
             android:theme="@style/AppTheme.ActionBar.Transparent"/>
     </application>
 
