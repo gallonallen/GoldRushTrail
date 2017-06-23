@@ -12,7 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/app_bar_height"
         android:fitsSystemWindows="true"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/tour_toolbar_layout"
@@ -20,14 +21,19 @@
             android:layout_height="match_parent"
             android:background="@color/colorPrimary"
             android:fitsSystemWindows="true"
-            android:onClick="toolbarClick"
-            app:contentScrim="?attr/colorPrimary"
+            app:contentScrim="@color/colorBrown"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:toolbarId="@+id/toolbar">
+            <!--
+        This use to be in CollapsingToolbarLayout:
+            android:focusable="false"
+            android:onClick="toolbarClick"
+            android:clickable="true"-->
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/tour_detail_toolbar"
                 android:layout_width="match_parent"
+                android:descendantFocusability="beforeDescendants"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
@@ -35,7 +41,6 @@
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>
-
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/goldcoasttour_detail_container"
         android:layout_width="match_parent"

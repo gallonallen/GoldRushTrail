@@ -8,6 +8,7 @@
     <string name="title_tours">Tours</string>
 
     <!-- TODO: Remove or change this placeholder text -->
+    <string name="action_info_string">more info</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_navigation_drawer">NavigationDrawerActivity</string>
 
@@ -26,5 +27,6 @@
     <string name="about_text">
         \n\t\t\tThe Gold Rush Trail Foundation, a non-profit organization, is sponsored by:\n</string>
     <string name="about_text2"></string>
+    <string name="title_activity_location_image">LocationImageActivity</string>
     <!-- TODO: change the string names to correlate with the View string EG title_list -->
 </resources>

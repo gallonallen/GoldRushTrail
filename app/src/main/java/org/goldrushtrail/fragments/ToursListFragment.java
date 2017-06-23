@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import org.goldrushtrail.R;
 import org.goldrushtrail.locations.GoldRushTour;
 
@@ -107,17 +106,4 @@ public class ToursListFragment extends Fragment
     }
 }
 
-/*
-FROM: NavigationDrawerActivity.java
 
-    @Override
-    public void tourListClickEventHandler(GoldRushTour tour)
-    {
-        Intent intent = new Intent(this, TourDetailActivity.class);
-        intent.putExtra(TourDetailFragment.ARG_TOUR, tour);
-                        //TourDetailFragment.ARG_TOUR is used
-                        //as the 'key' for the 'value' "tour"
-
-        startActivity(intent);
-    }
- */

@@ -1,20 +1,20 @@
 package org.goldrushtrail;
 
 import android.app.Activity;
+
+import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.DrawableRes;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.Toolbar;
-
 import org.goldrushtrail.locations.GoldRushLocation;
 
 /**
@@ -57,17 +57,35 @@ public class LocationDetailFragment extends Fragment
             // arguments. In a real-world scenario, use a Loader
             // to load content from a content provider.
             mLocation = getArguments().getParcelable(ARG_LOCATION);
-            Activity activity = this.getActivity();
+            final Activity activity = this.getActivity();
             mPackName = activity.getApplicationContext().getPackageName();
             mResources = activity.getResources();
             CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.toolbar_layout);
+            appBarLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(activity.getApplicationContext(), LocationDetailImageActivity.class);
+                    intent.putExtra("title", mLocation.getTitle());
+                    int imageInt = mResources.getIdentifier(mLocation.getDrawable(), "drawable", mPackName);
+                    intent.putExtra("image",imageInt );
+                    startActivity(intent);
+                }
+            });
             if (appBarLayout != null)
             {
                 int imageInt = mResources.getIdentifier(mLocation.getDrawable(), "drawable", mPackName);
-                Drawable drawable = getResources().getDrawable( imageInt );
+                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), imageInt);
+                //Drawable drawable = getResources().getDrawable( imageInt );
                 appBarLayout.setTitle(mLocation.getTitle());
+                int width = bitmap.getWidth();
+                int height = getNewHeight(width);
+                int yCoordinate = getYCoordinate(bitmap.getHeight(), height);
+
+                bitmap = Bitmap.createBitmap(bitmap, 0, yCoordinate, width, height);
+                Drawable drawable = new BitmapDrawable(activity.getResources(),bitmap);
                 appBarLayout.setBackground(drawable);
             }
+
         }
     }
 
@@ -80,9 +98,60 @@ public class LocationDetailFragment extends Fragment
         // Show the dummy content as text in a TextView.
         if (mLocation != null)
         {
-            ((TextView) rootView.findViewById(R.id.goldcoastlocation_detail)).setText(mLocation.getDetails());
+            //Adding the extra whitespace so that the user can scroll the last line of the paragraph higher.
+            ((TextView) rootView.findViewById(R.id.goldcoastlocation_detail)).setText(mLocation.getDetails()+"\n\n\n\n\n\n\n\n\n\n");
         }
 
         return rootView;
     }
+    private int getNewHeight(int width)
+    {
+        //The dimensions of the CollapsableToolbarLayout is precisely W: 1000, H: 488
+        double newHeight = width * .488;
+        return (int)newHeight;
+    }
+
+    private int getYCoordinate(int bitmapHeight, int imageHeight)
+    {
+        int difference = bitmapHeight - imageHeight;
+        return difference/2;
+    }
 }
+
+/*
+            mTour = getArguments().getParcelable(ARG_TOUR);
+            Activity activity = this.getActivity();
+            mPackName = activity.getApplicationContext().getPackageName();
+            mResources = activity.getResources();
+            CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.tour_toolbar_layout);
+            if (appBarLayout != null)
+            {
+                appBarLayout.setTitle(mTour.getTitle());
+                int imageInt = mResources.getIdentifier(mTour.getDrawable(), "drawable", mPackName);
+                //Drawable drawable = getResources().getDrawable( imageInt );
+                //TODO: Programmatically change the dimensions of the image via cropping, then setBackground(drawable); .
+                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), imageInt);
+                Log.d("Bitmap width", " "+bitmap.getWidth());
+                Log.d("Bitmap height", " "+bitmap.getHeight());
+                //The dimensions of the CollapsableToolbarLayout is precisely W: 1000, H: 488
+                int width = bitmap.getWidth();
+                int height = getNewHeight(width);
+                int yCoordinate = getYCoordinate(bitmap.getHeight(), height);
+
+                bitmap = Bitmap.createBitmap(bitmap, 0, yCoordinate, width, height);
+                Drawable drawable = new BitmapDrawable(activity.getResources(),bitmap);
+                appBarLayout.setBackground(drawable);
+            }
+
+    public int getNewHeight(int width)
+    {
+        //The dimensions of the CollapsableToolbarLayout is precisely W: 1000, H: 488
+        double newHeight = width * .488;
+        return (int)newHeight;
+    }
+    public int getYCoordinate(int bitmapHeight, int imageHeight)
+    {
+        int difference = bitmapHeight - imageHeight;
+        return difference/2;
+    }
+ */

@@ -1,11 +1,11 @@
 package org.goldrushtrail;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
+import android.view.MenuItem;
+
 
 public class NavigationItemHelpActivity extends AppCompatActivity
 {
@@ -17,5 +17,16 @@ public class NavigationItemHelpActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     }//onCreate()
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        int id = item.getItemId();
+        if(id == android.R.id.home)
+        {
+            navigateUpTo(new Intent(this, NavigationDrawerActivity.class));
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }//onOptionsItemSelected()
 
 }//class

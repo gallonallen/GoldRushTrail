@@ -61,7 +61,4 @@
         android:layout_gravity="center"
         android:paddingBottom="8dp"
         android:onClick="getWebsite"/>
-
-
-
 </LinearLayout>

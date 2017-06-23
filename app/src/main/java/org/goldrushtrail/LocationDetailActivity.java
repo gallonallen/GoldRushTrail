@@ -1,15 +1,16 @@
 package org.goldrushtrail;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
-
 import org.goldrushtrail.fragments.SitesListFragment;
+
 
 /**
  * An activity representing a single GoldRushLocation detail screen. This
@@ -19,7 +20,7 @@ import org.goldrushtrail.fragments.SitesListFragment;
  */
 public class LocationDetailActivity extends AppCompatActivity
 {
-
+    private Object location;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -41,6 +42,7 @@ public class LocationDetailActivity extends AppCompatActivity
             }
         });
 */
+
         // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)
@@ -51,6 +53,8 @@ public class LocationDetailActivity extends AppCompatActivity
         final Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         //TODO: Make the toolbar BLACK since the font is white.  It can help visually differentiate the Activity from the MAIN activitieS
 
         // savedInstanceState is non-null when there is fragment state
@@ -69,13 +73,65 @@ public class LocationDetailActivity extends AppCompatActivity
             Bundle arguments = new Bundle();
             arguments.putParcelable(LocationDetailFragment.ARG_LOCATION,
                     getIntent().getParcelableExtra(LocationDetailFragment.ARG_LOCATION));
+            //location = arguments.get(LocationDetailFragment.ARG_LOCATION);
             LocationDetailFragment fragment = new LocationDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.goldcoastlocation_detail_container, fragment)
                     .commit();
         }
+
+        final CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout)findViewById(R.id.toolbar_layout);
+        collapsingToolbarLayout.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+
+                final ProgressDialog pd = new ProgressDialog(LocationDetailActivity.this);
+                pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                pd.setTitle("Retrieving photos...");
+                pd.setProgress(0);
+                pd.setMax(2000);  //TODO: change this value!!!
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        int progress = 0;
+                        while(progress <= 100)
+                        {
+                            try
+                            {
+                                pd.setProgress(progress);
+                                progress++;
+                                Thread.sleep(10);
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                        }
+                        pd.dismiss();
+                        //
+                        //LocationDetailActivity.this.runOnUiThread(new Runnable() {
+                        //    @Override
+                        //    public void run() {
+                        //        Toast.makeText(getApplicationContext(), "Swipe right to see other images ", Toast.LENGTH_SHORT).show();
+                        //    }
+                        //});
+                    }
+                });
+                thread.start();
+                pd.show();
+                //Intent intent = new Intent(getApplicationContext(), LocationDetailImageActivity.class);
+                //intent.putExtra(TourDetailFragment.ARG_LOCATIONS, getIntent().getParcelableExtra(TourDetailFragment.ARG_LOCATIONS));
+                //intent.putExtra(LocationDetailFragment.ARG_LOCATION, location);
+                //locations = getIntent().getParcelableArrayListExtra(TourDetailFragment.ARG_LOCATIONS);
+                //intent.putParcelableArrayListExtra(TourDetailFragment.ARG_LOCATIONS, locations);
+                //startActivity(intent);
+            }
+        });
+
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
@@ -96,8 +152,11 @@ public class LocationDetailActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    public void toolbarClick(View view)
-    {
-        Toast.makeText(getApplicationContext(), "The onclick works", Toast.LENGTH_SHORT ).show();
-    }
 }
+/*
+
+Intent intent = new Intent
+                    (getApplicationContext(), LocationDetailImageActivity.class);
+       intent.putExtra(TourDetailFragment.ARG_LOCATIONS, getIntent().getParcelableExtra(TourDetailFragment.ARG_LOCATIONS));
+       startActivity(intent);
+ */

@@ -9,8 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
-
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -21,11 +19,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.goldrushtrail.R;
 import org.goldrushtrail.locations.GoldRushLocation;
 
@@ -91,10 +87,10 @@ public class SitesMapFragment extends Fragment implements OnMapReadyCallback
                     getActivity(), R.raw.style_json));
 
             if (!success) {
-                Log.e("Map styling: ", "Style parsing failed.");
+                //Log.e("Map styling: ", "Style parsing failed.");
             }
         } catch (Resources.NotFoundException e) {
-            Log.e("Map styling: ", "Can't find style. Error: ", e);
+            //Log.e("Map styling: ", "Can't find style. Error: ", e);
         }
         for( GoldRushLocation location: mListener.getLocations())
         {
@@ -109,42 +105,44 @@ public class SitesMapFragment extends Fragment implements OnMapReadyCallback
             {
                 markerOptions = new MarkerOptions()
                         .position(latLng)
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_teal))
                         .title(location.getTitle());
             }
             else if(location.tourEnum() == GoldRushLocation.TOUR_ENUM.EM)
             {
                 markerOptions = new MarkerOptions()
                         .position(latLng)
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_orange))
                         .title(location.getTitle());
             }
             else if(location.tourEnum() == GoldRushLocation.TOUR_ENUM.JS)
             {
                 markerOptions = new MarkerOptions()
                         .position(latLng)
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW))
+                        //.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW))
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_yellow))
                         .title(location.getTitle());
             }
             else if(location.tourEnum() == GoldRushLocation.TOUR_ENUM.FI)
             {
                 markerOptions = new MarkerOptions()
                         .position(latLng)
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_green))
                         .title(location.getTitle());
             }
             else if(location.tourEnum() == GoldRushLocation.TOUR_ENUM.PS)
             {
                 markerOptions = new MarkerOptions()
                         .position(latLng)
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+                        //.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_red))
                         .title(location.getTitle());
             }
             else if(location.tourEnum() == GoldRushLocation.TOUR_ENUM.CO)
             {
                 markerOptions = new MarkerOptions()
                         .position(latLng)
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET))
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_purple))
                         .title(location.getTitle());
             }else {
                 markerOptions = new MarkerOptions()
@@ -154,7 +152,7 @@ public class SitesMapFragment extends Fragment implements OnMapReadyCallback
             }
 
 
-            Log.d("In the for-loop", "location.tourEnum() : "+location.tourEnum());
+            //Log.d("In the for-loop", "location.tourEnum() : "+location.tourEnum());
             Marker marker = googleMap.addMarker(markerOptions);
             mapLocations.put(marker, location);
 
@@ -174,12 +172,7 @@ public class SitesMapFragment extends Fragment implements OnMapReadyCallback
         });
     }
 
-    public void onButtonPressed(Uri uri)
-    {
-        if (mListener != null)
-        {
-        }
-    }
+
 
     @Override
     public void onAttach(Context context)

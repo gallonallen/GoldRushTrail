@@ -1,10 +1,13 @@
 package org.goldrushtrail;
 
+
 import android.content.Intent;
+import android.os.Build;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.util.Log;
+import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 
 public class SplashActivity extends AppCompatActivity
@@ -18,8 +21,24 @@ public class SplashActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        ActionBar actionBar = getSupportActionBar();
+        if (Build.VERSION.SDK_INT < 16)//before Jelly Bean Versions
+        {
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
+        else // Jelly Bean and up
+        {
+            View decorView = getWindow().getDecorView();
+            // Hide the status bar.
+            int ui = View.SYSTEM_UI_FLAG_FULLSCREEN;
+            decorView.setSystemUiVisibility(ui);
+
+            //Hide actionbar
+            actionBar.hide();
+        }
         imageView = (ImageView)findViewById(R.id.image_splash);
-        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         final Intent intent = new Intent(getApplicationContext(), NavigationDrawerActivity.class);
         Thread thread = new Thread()
         {
@@ -29,7 +48,7 @@ public class SplashActivity extends AppCompatActivity
                 super.run();
                 try
                 {
-                    sleep(500);
+                    sleep(1500);
                     startActivity(intent);
                     finish();
                 }

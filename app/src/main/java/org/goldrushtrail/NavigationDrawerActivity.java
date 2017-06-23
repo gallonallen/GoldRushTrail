@@ -12,18 +12,17 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
-
 import org.goldrushtrail.fragments.SitesListFragment;
 import org.goldrushtrail.fragments.SitesMapFragment;
 import org.goldrushtrail.fragments.ToursListFragment;
 import org.goldrushtrail.locations.GCLAssetReader;
 import org.goldrushtrail.locations.GoldRushLocation;
 import org.goldrushtrail.locations.GoldRushTour;
-import org.goldrushtrail.locations.NavigationItemHelpActivity;
-
 
 import java.util.ArrayList;
+
 
 public class NavigationDrawerActivity extends AppCompatActivity
         implements
@@ -102,7 +101,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
-    @SuppressWarnings("StatementWithEmptyBody")
+
     @Override
     public boolean onNavigationItemSelected(MenuItem item)
     {
@@ -117,8 +116,8 @@ public class NavigationDrawerActivity extends AppCompatActivity
         }
         else if (id == R.id.nav_help)
         {
-            Intent intent = new Intent(getApplicationContext(), NavigationItemHelpActivity.class);
-            startActivity(intent);
+            String[] email = {"contact@goldrushtrail.org"};
+            composeEmail(email, "Feedback for GRT app");
         }
         else if (id == R.id.nav_web)
         {
@@ -126,12 +125,6 @@ public class NavigationDrawerActivity extends AppCompatActivity
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             startActivity(intent);
         }
-        else if (id == R.id.nav_developers)
-        {
-            Intent intent = new Intent(getApplicationContext(), NavigationItemDevelopersActivity.class);
-            startActivity(intent);
-        }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -169,6 +162,8 @@ public class NavigationDrawerActivity extends AppCompatActivity
         Intent intent = new Intent(this, TourDetailActivity.class);
         intent.putExtra(TourDetailFragment.ARG_TOUR, tour);
 
+        ArrayList<GoldRushLocation> locations = getTourLocations(tour);
+        intent.putExtra(TourDetailFragment.ARG_LOCATIONS, locations);
         startActivity(intent);
     }
 
@@ -177,4 +172,35 @@ public class NavigationDrawerActivity extends AppCompatActivity
     {
         return mTours;
     }
+
+
+    public ArrayList<GoldRushLocation> getTourLocations(GoldRushTour tour)
+    {
+        ArrayList<GoldRushLocation> tourLocations = new ArrayList<>();
+        String tourName = tour.getTour();
+        for (GoldRushLocation site: mLocations)
+        {
+            if(site.getTour().equals(tourName))
+            {
+                //Log.d("getTourLocations(): ", site.getTour());
+                tourLocations.add(site);
+            }
+            else
+            {
+                //Log.d("getTourLocations(): ", site.getTour()+" , "+tourName);
+            }
+        }
+        return tourLocations;
+    }
+
+    public void composeEmail(String[] addresses, String subject) {
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+        intent.putExtra(Intent.EXTRA_EMAIL, addresses);
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+    }
+
 }

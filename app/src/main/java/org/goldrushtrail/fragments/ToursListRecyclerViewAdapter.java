@@ -1,6 +1,5 @@
 package org.goldrushtrail.fragments;
 
-import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,11 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import org.goldrushtrail.R;
 import org.goldrushtrail.locations.GoldRushTour;
 import org.goldrushtrail.fragments.ToursListFragment.GoldRushTourFragmentListener;
-
 import java.util.List;
 
 /**
@@ -63,7 +60,9 @@ public class ToursListRecyclerViewAdapter extends RecyclerView.Adapter<ToursList
         }
         //TODO: Create a method "private int getImage(String titleOfTour)"
         //getImage(mTours.get(position).getTour());
+
         holder.mImageView.setImageResource(getImage(mTours.get(position).getTour()));
+
         //Added June 1.
         /*
         int tResource = R.drawable.noimage;
@@ -119,7 +118,7 @@ public class ToursListRecyclerViewAdapter extends RecyclerView.Adapter<ToursList
     }
     private int getImage(String title)
     {
-        Log.d("onBind(): ", "title: "+title);
+        //Log.d("onBind(): ", "title: "+title);
         int drawableId = 0;
         switch (title)
         {
@@ -148,7 +147,10 @@ public class ToursListRecyclerViewAdapter extends RecyclerView.Adapter<ToursList
         return drawableId;
     }
 
+
 }
+
+
 
 /*
 
