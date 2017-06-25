@@ -68,24 +68,30 @@ public class TourDetailFragment extends Fragment
             Activity activity = this.getActivity();
             mPackName = activity.getApplicationContext().getPackageName();
             mResources = activity.getResources();
-            CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(R.id.tour_toolbar_layout);
-            if (appBarLayout != null)
+            CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) activity.findViewById(R.id.tour_toolbar_layout);
+            if (collapsingToolbar != null)
             {
-                appBarLayout.setTitle(mTour.getTitle());
+                collapsingToolbar.setTitle(mTour.getTitle());
                 int imageInt = mResources.getIdentifier(mTour.getDrawable(), "drawable", mPackName);
-                //Drawable drawable = getResources().getDrawable( imageInt );
-                //TODO: Programmatically change the dimensions of the image via cropping, then setBackground(drawable); .
-                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), imageInt);
-                //Log.d("Bitmap width", " "+bitmap.getWidth());
-                //Log.d("Bitmap height", " "+bitmap.getHeight());
-                //The dimensions of the CollapsableToolbarLayout is precisely W: 1000, H: 488
-                int width = bitmap.getWidth();
-                int height = getNewHeight(width);
-                int yCoordinate = getYCoordinate(bitmap.getHeight(), height);
 
-                bitmap = Bitmap.createBitmap(bitmap, 0, yCoordinate, width, height);
-                Drawable drawable = new BitmapDrawable(activity.getResources(),bitmap);
-                appBarLayout.setBackground(drawable);
+                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), imageInt);
+                //The dimensions of the CollapsableToolbarLayout is precisely W: 1000, H: 488
+                //MODIFIED June 25: wrapped the code in an if/else statement.
+                if(bitmap == null)
+                {
+                    Log.d("TourDetailAct", "bitmap is null");
+                    return;
+                }
+                else
+                {
+                    int width = bitmap.getWidth();
+                    int height = getNewHeight(width);
+                    int yCoordinate = getYCoordinate(bitmap.getHeight(), height);
+                    bitmap = Bitmap.createBitmap(bitmap, 0, yCoordinate, width, height);
+                    Drawable drawable = new BitmapDrawable(activity.getResources(),bitmap);
+                    collapsingToolbar.setBackground(drawable);
+                }
+
             }
         }
     }
@@ -112,7 +118,7 @@ public class TourDetailFragment extends Fragment
     {
         //The dimensions of the CollapsableToolbarLayout is precisely W: 1000, H: 488
         double newHeight = width * .488;
-        return (int)newHeight;
+        return (int) newHeight;
     }
     public int getYCoordinate(int bitmapHeight, int imageHeight)
     {

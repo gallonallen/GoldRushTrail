@@ -62,49 +62,6 @@ public class SitesListRecyclerViewAdapter
             int imageIdNumber = smallImages[position];
             Bitmap bitmap = BitmapFactory.decodeResource(mResources, imageIdNumber);
             holder.mImageView.setImageBitmap(bitmap);
-            /*
-            //TODO: Uncomment when you put the images in the drawable folder.
-            //int tResource = mResources.getIdentifier(smallImages[(mLocations.get(position)], "drawable", mPackageName);
-            int tResource = mResources.getIdentifier(mLocations.get(position).getDrawable(), "drawable", mPackageName);
-            if (tResource > 1)
-            {
-                //
-                //How to crop a bitmap for ImageView
-                //https://stackoverflow.com/questions/18232034/how-can-i-crop-a-bitmap-for-imageview
-
-                //FIRST: Reduce the size of the image
-                //TODO: Delete the unnecessary code.
-                Bitmap bitmap = BitmapFactory.decodeResource(mResources, tResource);
-                int originalWidth = bitmap.getWidth();
-                int originalHeight = bitmap.getHeight();
-                int reducedWidth = 100;
-                int reducedHeight = reduceHeight(originalWidth, originalHeight, reducedWidth);
-                bitmap = Bitmap.createScaledBitmap(bitmap, reducedWidth, reducedHeight, true);
-                //SECOND: Crop the image by using the width of the reduced image.
-                int newWidth = bitmap.getWidth();
-                int newHeight = getNewHeight(newWidth);
-                int yCoordinate = getYCoordinate(bitmap.getHeight(), newHeight);
-                if(yCoordinate >= 0 )
-                {
-                    Log.d("bitmap", "name: "+mLocations.get(position).getTitle());
-                    bitmap = Bitmap.createBitmap(bitmap, 0, yCoordinate, newWidth, newHeight);
-                    //bitmap = Bitmap.createScaledBitmap(bitmap,200,184, true);
-                    Log.d("bitmap", "\t\tnewWidth: "+bitmap.getWidth()+"; newHeight: "+bitmap.getHeight());
-                    //Bitmap resized = Bitmap.createScaledBitmap(yourBitmap, newWidth, newHeight, true);
-                    holder.mImageView.setImageBitmap(bitmap);
-                }
-                else
-                {
-                    holder.mImageView.setImageResource(imageResource);
-                }
-
-                //imageResource = tResource;
-            }
-            else
-            {
-                holder.mImageView.setImageResource(imageResource);
-            }
-            */
         }
         else
         {
@@ -152,17 +109,5 @@ public class SitesListRecyclerViewAdapter
     }
 }
 
-/*
-int imageInt = mResources.getIdentifier(mTour.getDrawable(), "drawable", mPackName);
-Bitmap bitmap = BitmapFactory.decodeResource(getResources(), imageInt);
-//The dimensions of the ListView is precisely W: 1000, H: 925
-int width = bitmap.getWidth();
-int height = getNewHeight(width);
-int yCoordinate = getYCoordinate(bitmap.getHeight(), height);
-bitmap = Bitmap.createBitmap(bitmap, 0, yCoordinate, width, height);
-Drawable drawable = new BitmapDrawable(activity.getResources(),bitmap);
-//appBarLayout.setBackground(drawable);
 
-
- */
 

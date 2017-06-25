@@ -11,6 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,17 +74,27 @@ public class LocationDetailFragment extends Fragment
             });
             if (appBarLayout != null)
             {
+                appBarLayout.setTitle(mLocation.getTitle());
                 int imageInt = mResources.getIdentifier(mLocation.getDrawable(), "drawable", mPackName);
                 Bitmap bitmap = BitmapFactory.decodeResource(getResources(), imageInt);
                 //Drawable drawable = getResources().getDrawable( imageInt );
-                appBarLayout.setTitle(mLocation.getTitle());
-                int width = bitmap.getWidth();
-                int height = getNewHeight(width);
-                int yCoordinate = getYCoordinate(bitmap.getHeight(), height);
+                //MODIFIED June 25: wrapped the code in the if/else statement below to prevent the null-pointer exception.
+                if(bitmap == null)
+                {
+                    Log.d("LocDetailFrag: ", "bitMap is null");
+                    return;
+                }
+                else
+                {
+                    int width = bitmap.getWidth();
+                    int height = getNewHeight(width);
+                    int yCoordinate = getYCoordinate(bitmap.getHeight(), height);
 
-                bitmap = Bitmap.createBitmap(bitmap, 0, yCoordinate, width, height);
-                Drawable drawable = new BitmapDrawable(activity.getResources(),bitmap);
-                appBarLayout.setBackground(drawable);
+                    bitmap = Bitmap.createBitmap(bitmap, 0, yCoordinate, width, height);
+                    Drawable drawable = new BitmapDrawable(activity.getResources(),bitmap);
+                    appBarLayout.setBackground(drawable);
+                }
+
             }
 
         }
