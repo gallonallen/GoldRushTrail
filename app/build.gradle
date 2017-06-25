@@ -14,7 +14,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false //RATIONALE: keeps unused methods instead of removing them, therefore preventing errors.
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -35,11 +35,6 @@ android {
     */
     productFlavors {
     }
-
-
-
-
-
 }
 
 dependencies {
