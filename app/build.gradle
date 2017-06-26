@@ -11,6 +11,10 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    //The aapt tool may inflate PNG files that have already been compressed
+    aaptOptions {
+        cruncherEnabled = false
+    }
 
     buildTypes {
         release {
@@ -34,6 +38,7 @@ android {
     }
     */
     productFlavors {
+
     }
 }
 
