@@ -19,7 +19,7 @@ android {
     buildTypes {
         release {
             minifyEnabled false //RATIONALE: keeps unused methods instead of removing them, therefore preventing errors.
-            shrinkResources true
+            shrinkResources false //RATIONALE: this is causing another error, so it was set to false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
