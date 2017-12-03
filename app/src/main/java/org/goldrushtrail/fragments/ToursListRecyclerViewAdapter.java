@@ -63,14 +63,7 @@ public class ToursListRecyclerViewAdapter extends RecyclerView.Adapter<ToursList
 
         holder.mImageView.setImageResource(getImage(mTours.get(position).getTour()));
 
-        //Added June 1.
-        /*
-        int tResource = R.drawable.noimage;
-        if(mTours.get(position).hasImage())
-        {
 
-        }
-        */
 
         holder.mView.setOnClickListener(new View.OnClickListener()
         {
@@ -142,6 +135,7 @@ public class ToursListRecyclerViewAdapter extends RecyclerView.Adapter<ToursList
                 break;
             default:
                 Log.d("onBind(): ", "You misspelled something");
+                drawableId =  R.drawable.image_tour_yb;
                 break;
         }
         return drawableId;

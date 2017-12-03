@@ -11,11 +11,15 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    //The aapt tool may inflate PNG files that have already been compressed
+    aaptOptions {
+        cruncherEnabled = false
+    }
 
     buildTypes {
         release {
-            minifyEnabled true
-            shrinkResources true
+            minifyEnabled false //RATIONALE: keeps unused methods instead of removing them, therefore preventing errors.
+            shrinkResources false //RATIONALE: this is causing another error, so it was set to false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -34,12 +38,8 @@ android {
     }
     */
     productFlavors {
+
     }
-
-
-
-
-
 }
 
 dependencies {

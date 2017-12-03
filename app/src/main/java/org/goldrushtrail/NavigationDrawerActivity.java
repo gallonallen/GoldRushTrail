@@ -174,7 +174,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
     }
 
 
-    public ArrayList<GoldRushLocation> getTourLocations(GoldRushTour tour)
+    private ArrayList<GoldRushLocation> getTourLocations(GoldRushTour tour)
     {
         ArrayList<GoldRushLocation> tourLocations = new ArrayList<>();
         String tourName = tour.getTour();
@@ -193,7 +193,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
         return tourLocations;
     }
 
-    public void composeEmail(String[] addresses, String subject) {
+    private void composeEmail(String[] addresses, String subject) {
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("mailto:")); // only email apps should handle this
         intent.putExtra(Intent.EXTRA_EMAIL, addresses);

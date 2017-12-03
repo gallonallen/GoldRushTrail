@@ -72,7 +72,11 @@
             android:label="@string/title_activity_navigation_item_developers"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
-        <activity android:name=".TourImagesActivity" />
+        <activity
+            android:name=".TourImagesActivity"
+            android:screenOrientation="portrait"/>
+
+
         <activity
             android:name=".LocationDetailImageActivity"
             android:screenOrientation="portrait"
